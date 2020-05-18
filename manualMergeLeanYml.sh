@@ -39,7 +39,7 @@ if [[ "$1" == ""  ]];then
 fi
 
 merging() {
-    git remote add upstream https://github.com/coolsnowwolf/lede.git;
+    git remote add upstream https://github.com/wahyd4/aria2-ariang-docker.git;
     git pull https://github.com/wahyd4/aria2-ariang-docker.git --no-edit --strategy-option ours
     git fetch upstream;
     git checkout master;
