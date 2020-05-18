@@ -1,30 +1,21 @@
 #! /bin/bash -eu
 
-echo "Run aria2c and ariaNG"
-if [ "$ENABLE_AUTH" = "true" ]; then
-  echo "Using Basic Auth config file "
-  CADDY_FILE=/usr/local/caddy/SecureCaddyfile
-else
-  echo "Using caddy without Basic Auth"
-  CADDY_FILE=/usr/local/caddy/Caddyfile
-fi
+sed -i 's/6800/'"${ARIA2_EXTERNAL_PORT}"'/g' /usr/local/www/aria2/js/aria-ng*.js
+RPC_SECRET_BASE64=$(echo -n ${RPC_SECRET}|base64)
+sed -i 's/secret:\"\"/secret:\"'"${RPC_SECRET_BASE64}"'\"/g' /usr/local/www/aria2/js/aria-ng*.js
 
-if [ "$SSL" = "true" ]; then
+if [ "$ARIA2_SSL" = "true" ]; then
 echo "Start aria2 with secure config"
 
-/usr/bin/aria2c --conf-path="/root/conf/aria2.conf" -D  \
---enable-rpc --rpc-listen-all  \
---rpc-certificate=/root/conf/key/aria2.crt \
---rpc-private-key=/root/conf/key/aria2.key \
+/usr/bin/aria2c --conf-path="/app/conf/aria2.conf" \
+--enable-rpc --rpc-listen-all \
+--rpc-certificate=/app/conf/key/aria2.crt \
+--rpc-private-key=/app/conf/key/aria2.key \
 --rpc-secret="$RPC_SECRET" --rpc-secure \
-&& (nohup sh -c "/usr/local/bin/filebrowser -d /root/filebrowser.db -l /var/log/file-browser/out.log -r /data" &)\
-&& /usr/local/bin/caddy -quic --conf ${CADDY_FILE}
 
 else
 
 echo "Start aria2 with standard mode"
-/usr/bin/aria2c --conf-path="/root/conf/aria2.conf" -D \
---enable-rpc --rpc-listen-all \
-&& (nohup sh -c "/usr/local/bin/filebrowser -d /root/filebrowser.db -l /var/log/file-browser/out.log -r /data" &)\
-&& /usr/local/bin/caddy -quic --conf ${CADDY_FILE}
+/usr/bin/aria2c --conf-path="/app/conf/aria2.conf" --enable-rpc --rpc-listen-all
+
 fi
