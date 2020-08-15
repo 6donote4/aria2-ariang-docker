@@ -18,18 +18,23 @@ ENV CADDYPATH=/app
 RUN adduser -D -u 1000 junv \
   && apk update \
   && apk add runit shadow wget bash curl openrc gnupg aria2 tar --no-cache \
-  && curl https://getcaddy.com | bash -s personal \
-  && filebrowser_version=v2.2.0 \
+  && caddy_tag=v1.0.4 \
+  && wget -N https://github.com/caddyserver/caddy/releases/download/${caddy_tag}/caddy_${caddy_tag}_linux_amd64.tar.gz \
+  && tar -zxvf caddy_${caddy_tag}_linux_amd64.tar.gz \
+  && mv caddy /usr/local/bin/ \
+  && rm -rf caddy_${caddy_tag}_linux_amd64.tar.gz \
+  && filebrowser_version=v2.5.0 \
   && platform=linux-amd64 \
   && wget -N https://github.com/filebrowser/filebrowser/releases/download/${filebrowser_version}/${platform}-filebrowser.tar.gz \
   && tar -zxvf ${platform}-filebrowser.tar.gz \
   && rm -rf ${platform}-filebrowser.tar.gz \
-  && rm LICENSE README.md \
+  && rm LICENSE README.md CHANGELOG.md \
   && wget -N https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-${platform}.tgz \
   && tar -zxvf forego-stable-${platform}.tgz \
   && rm -rf forego-stable-${platform}.tgz \
   && mkdir -p /usr/local/www \
-  && mkdir -p /usr/local/www/aria2
+  && mkdir -p /usr/local/www/aria2 \
+  && rm -rf init /app/*.txt
 
 ADD aria2c.sh caddy.sh Procfile init.sh start.sh /app/
 ADD conf /app/conf

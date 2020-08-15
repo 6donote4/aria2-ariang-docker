@@ -5,6 +5,9 @@ English | [简体中文](https://github.com/wahyd4/aria2-ariang-docker/blob/mast
 [![](https://images.microbadger.com/badges/image/wahyd4/aria2-ui.svg)](https://microbadger.com/images/wahyd4/aria2-ui "Get your own image badge on microbadger.com")
 [![Docker Pulls](https://img.shields.io/docker/pulls/wahyd4/aria2-ui.svg)](https://hub.docker.com/r/wahyd4/aria2-ui/)
 [![Github Build](https://github.com/wahyd4/aria2-ariang-docker/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/wahyd4/aria2-ariang-docker/actions)
+[![Page Views Count](https://badge.home.toozhao.com/svg/aria2-ariang-docker)](https://badge.home.toozhao.com/svg/aria2-ariang-docker "Page Views Count")
+
+**If you like this, please consider support me / 如果喜欢，请考虑打赏，谢谢！**
 
 <img src="https://raw.githubusercontent.com/wahyd4/work-in-australia/766592ac6318027d7b3c334d8c50ca80818eeff8/wepay.jpg" alt="buy me a drink" width="120"/>
 
@@ -50,7 +53,7 @@ File Browser
 * wahyd4/aria2-ui:arm32
 * wahyd4/aria2-ui:arm64
 
-> ‼️ If you are running this docker image on Raspberry Pi，please use tag `arm32`
+> ‼️ If you plan to run this docker image on Raspberry Pi，please use tag `arm32`
 
 ## How to run
 
